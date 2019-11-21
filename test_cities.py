@@ -19,6 +19,7 @@ def test_swap_cities():
                     ("Kentucky", "Frankfort", 38.197274, -84.86311)]
 
     distance = math.sqrt((44.95-38.197274)**2 + (93.094 - 84.86311)**2)
+
     assert swap_cities(road_map, 0, 1) ==\
           (new_road_map, pytest.approx(distance, 0.01)), "Swaping did not take place"
     """
@@ -40,4 +41,15 @@ def test_shift_cities():
     new_road_map3 = [("Minnesota", "Saint Paul", 44.95, -93.094),\
                     ("Kentucky", "Frankfort", 38.197274, -84.86311),\
                     ("Delaware", "Dover", 39.161921, -75.526755)]
-    assert shift_cities(road_map3) == new_road_map3 , "Shifting did not take place"
+
+    assert shift_cities(road_map3) == new_road_map3, "Shifting did not take place"
+
+def test_read_cities():
+  road_map4 = [("Alabama", "Montgomery",  32.361538, -86.279118),\
+              ("Alaska", "Juneau", 58.301935, -134.41974),\
+              ("Arizona", "Phoenix", 33.448457, -112.073844 )]
+
+  assert read_cities(test_city_data.txt) == road_map4, "Roaad map reading did not take place"
+
+
+
