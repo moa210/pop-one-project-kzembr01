@@ -45,11 +45,13 @@ def test_shift_cities():
     assert shift_cities(road_map3) == new_road_map3, "Shifting did not take place"
 
 def test_read_cities():
+
   road_map4 = [("Alabama", "Montgomery",  32.361538, -86.279118),\
               ("Alaska", "Juneau", 58.301935, -134.41974),\
               ("Arizona", "Phoenix", 33.448457, -112.073844 )]
+  inputfilepath="test_city_data.txt"
 
-  assert read_cities(test_city_data.txt) == road_map4, "Roaad map reading did not take place"
+  assert read_cities(inputfilepath) == road_map4, "Roaad map reading did not take place"
 
 
 

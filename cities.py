@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import random
+import codecs
 import unicodedata
 # -*- coding: utf-8 -*-
 
@@ -12,16 +14,17 @@ def read_cities(file_name):
     Use this as your initial `road_map`, that is, the cycle
 
     Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
-  #   """
-  # infile = open(“file_name”, "r", encoding='utf-8')
-  # line = infile.readline()
-  # road_map = []
-  # while line != "" :
-  #     road_map.append(line.rstrip())
-  #     line = infile.readline()
 
-  # return road_map
-    # pass
+    infile = open(“file_name”, "r")
+    line = infile.readline()
+    road_map = []
+    while line != "" :
+      road_map.append(line.rstrip())
+      line = infile.readline()
+
+    return road_map
+    """
+    pass
 
 def print_cities(road_map):
     """
