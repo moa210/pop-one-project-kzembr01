@@ -5,33 +5,61 @@ import unicodedata
 # -*- coding: utf-8 -*-
 
 def read_cities(file_name):
-    """
-    Read in the cities from the given `file_name`, and return
-    them as a list of four-tuples:
 
-      [(state, city, latitude, longitude), ...]
+  # ****************
+  # i have list of tuples with strings - long and lat should be as flats/ints?
+  # *****************
 
-    Use this as your initial `road_map`, that is, the cycle
+  # """
+  infile = open(file_name, "r")
+  line = infile.readline()
+  road_map = []
 
-    Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
-
-    infile = open(“file_name”, "r")
+  # print("I am in read cities13")
+  while line:
+    value = tuple(line.rstrip('\n').split(' '))
+    # print(value)
+    road_map.append(value)
     line = infile.readline()
-    road_map = []
-    while line != "" :
-      road_map.append(line.rstrip())
-      line = infile.readline()
+    # print(line)
+  # print("I am in read cities20")
+  return(road_map)
 
-    return road_map
-    """
-    pass
+  """
+  Read in the cities from the given `file_name`, and return
+  them as a list of four-tuples:
+
+    [(state, city, latitude, longitude), ...]
+
+  Use this as your initial `road_map`, that is, the cycle
+
+  Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
+  # """
+    # pass
 
 def print_cities(road_map):
-    """
-    Prints a list of cities, along with their locations.
-    Print only one or two digits after the decimal point.
-    """
-    pass
+  # ****************
+  # how to print float out of tuple???
+  # ****************
+  print("I am in print line 36")
+
+  print(road_map)
+  for el in road_map:
+    text = str
+
+    for i in range(0, len(el)):
+      if float in el:
+        print(round(el, 2))
+      else:
+        print("el is :" , el[i])
+
+  print("I am in print cities 42")
+
+  """
+  Prints a list of cities, along with their locations.
+  Print only one or two digits after the decimal point.
+  """
+  # pass
 
 def compute_total_distance(road_map):
     """

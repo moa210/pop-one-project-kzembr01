@@ -38,6 +38,7 @@ def test_shift_cities():
     road_map3 = [("Kentucky", "Frankfort", 38.197274, -84.86311),\
                 ("Delaware", "Dover", 39.161921, -75.526755),\
                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
+
     new_road_map3 = [("Minnesota", "Saint Paul", 44.95, -93.094),\
                     ("Kentucky", "Frankfort", 38.197274, -84.86311),\
                     ("Delaware", "Dover", 39.161921, -75.526755)]
@@ -46,12 +47,23 @@ def test_shift_cities():
 
 def test_read_cities():
 
-  road_map4 = [("Alabama", "Montgomery",  32.361538, -86.279118),\
+  road_map4 = [("Alabama", "Montgomery", 32.361538, -86.279118),\
               ("Alaska", "Juneau", 58.301935, -134.41974),\
               ("Arizona", "Phoenix", 33.448457, -112.073844 )]
+
   inputfilepath="test_city_data.txt"
 
   assert read_cities(inputfilepath) == road_map4, "Roaad map reading did not take place"
 
 
+def test_print_cities():
 
+  road_map5 = [("Alabama", "Montgomery", 32.361538, -86.279118),\
+              ("Alaska", "Juneau", 58.301935, -134.41974),\
+              ("Arizona", "Phoenix", 33.448457, -112.073844 )]
+
+  road_map5_printed = ("Alabama, Montgomery, 32.36, -86.27"),\
+              ("Alaska, Juneau, 58.30, -134.41"),\
+              ("Arizona, Phoenix, 33.44, -112.07")
+
+  assert print_cities(road_map5) == road_map5_printed, "Roaad map printing did not take place"
