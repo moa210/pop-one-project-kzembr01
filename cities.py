@@ -2,27 +2,20 @@
 import random
 import codecs
 import unicodedata
-# -*- coding: utf-8 -*-
+
 
 def read_cities(file_name):
 
-  # ****************
-  # i have list of tuples with strings - long and lat should be as flats/ints?
-  # *****************
-
-  # """
   infile = open(file_name, "r")
   line = infile.readline()
   road_map = []
 
-  # print("I am in read cities13")
   while line:
-    value = tuple(line.rstrip('\n').split(' '))
-    # print(value)
+    value = tuple(line.rstrip('\n').split("\t"))
+    value = (value[0],value[1],float(value[2]),float(value[3]))
     road_map.append(value)
     line = infile.readline()
-    # print(line)
-  # print("I am in read cities20")
+
   return(road_map)
 
   """
@@ -34,10 +27,10 @@ def read_cities(file_name):
   Use this as your initial `road_map`, that is, the cycle
 
   Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
-  # """
-    # pass
+  """
 
 def print_cities(road_map):
+
   # ****************
   # how to print float out of tuple???
   # ****************
@@ -116,4 +109,8 @@ def main():
     pass
 
 if __name__ == "__main__": #keep this in
+
+    # read_cities("test-city-data.txt")
+
     main()
+
