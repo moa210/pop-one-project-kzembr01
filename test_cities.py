@@ -28,7 +28,7 @@ def test_swap_cities():
     """
     Take the city at location `index` in the `road_map`, and the
     city at location `index2`, swap their positions in the `road_map`,
-    compute the new total distane, and return the tuple
+    compute the new total distance, and return the tuple
 
         (new_road_map, new_total_distance)
 
@@ -70,8 +70,6 @@ def test_print_cities():
               ("Alaska", "Juneau", 58.301935, -134.41974),\
               ("Arizona", "Phoenix", 33.448457, -112.073844 )]
 
-  road_map5_printed = ("Alabama, Montgomery, 32.36, -86.27"),\
-              ("Alaska, Juneau, 58.30, -134.41"),\
-              ("Arizona, Phoenix, 33.44, -112.07")
+  road_map5_printed = "Alabama, Montgomery, 32.36, -86.28\nAlaska, Juneau, 58.3, -134.42\nArizona, Phoenix, 33.45, -112.07\n"
 
   assert print_cities(road_map5) == road_map5_printed, "********** Road map printing did not take place **********"

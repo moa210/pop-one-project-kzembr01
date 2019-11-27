@@ -5,7 +5,6 @@ import unicodedata
 
 
 def read_cities(file_name):
-
   infile = open(file_name, "r")
   line = infile.readline()
   road_map = []
@@ -17,7 +16,6 @@ def read_cities(file_name):
     line = infile.readline()
 
   return(road_map)
-
   """
   Read in the cities from the given `file_name`, and return
   them as a list of four-tuples:
@@ -31,28 +29,24 @@ def read_cities(file_name):
 
 def print_cities(road_map):
 
-  # ****************
-  # how to print float out of tuple???
-  # ****************
-  print("I am in print line 36")
-
-  print(road_map)
   for el in road_map:
-    text = str
-
+    road_map_str = ""
     for i in range(0, len(el)):
-      if float in el:
-        print(round(el, 2))
+      if type(el[i]) == float:
+        if i < 3:
+          road_map_str += (str(round(el[i], 2)) + ", ")
+        else:
+          road_map_str += (str(round(el[i], 2)))
       else:
-        print("el is :" , el[i])
+        road_map_str += (el[i] + ", ")
 
-  print("I am in print cities 42")
+    print(road_map_str)
 
   """
   Prints a list of cities, along with their locations.
   Print only one or two digits after the decimal point.
   """
-  # pass
+
 
 def compute_total_distance(road_map):
     """
@@ -111,6 +105,8 @@ def main():
 if __name__ == "__main__": #keep this in
 
     # read_cities("test-city-data.txt")
-
+    # print_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
+    #           ("Alaska", "Juneau", 58.301935, -134.41974),\
+    #           ("Arizona", "Phoenix", 33.448457, -112.073844 )])
     main()
 
