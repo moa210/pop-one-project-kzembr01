@@ -149,8 +149,9 @@ if __name__ == "__main__": #keep this in
     #   ("Alaska", "Juneau", 58.301935, -134.41974),\
     #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
 
-    shift_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
-      ("Alaska", "Juneau", 58.301935, -134.41974),\
-      ("Arizona", "Phoenix", 33.448457, -112.073844 )])
+    # shift_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
+    #   ("Alaska", "Juneau", 58.301935, -134.41974),\
+    #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
+
     main()
 
