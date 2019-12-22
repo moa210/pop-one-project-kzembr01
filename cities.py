@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import random
 import codecs
 import unicodedata
@@ -58,10 +57,12 @@ def compute_total_distance(road_map):
 
   for i in range(0, len(road_map)):
     x1,y1 = road_map[i][2], road_map[i][3]
+
     if i != len(road_map) -1:
       x2,y2 = road_map[i+1][2], road_map[i+1][3]
     else:
       x2,y2 = road_map[0][2], road_map[0][3]
+
     total_distance = total_distance + (math.sqrt((x1-x2)**2 + (y1-y2)**2))
 
   return(total_distance)
@@ -97,12 +98,21 @@ def swap_cities(road_map, index1, index2):
   """
 
 def shift_cities(road_map):
-    """
-    For every index i in the `road_map`, the city at the position i moves
-    to the position i+1. The city at the last position moves to the position
-    0. Return the new road map.
-    """
-    pass
+
+  new_road_map = []
+  new_road_map.append(road_map[-1])
+
+  for i in range(0, len(road_map)-1):
+    new_road_map.append(road_map[i])
+
+  return(new_road_map)
+
+  """
+  For every index i in the `road_map`, the city at the position i moves
+  to the position i+1. The city at the last position moves to the position
+  0. Return the new road map.
+  """
+  # pass
 
 def find_best_cycle(road_map):
     """
@@ -138,5 +148,9 @@ if __name__ == "__main__": #keep this in
     # compute_total_distance([("Alabama", "Montgomery", 32.361538, -86.279118),\
     #   ("Alaska", "Juneau", 58.301935, -134.41974),\
     #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
+
+    shift_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
+      ("Alaska", "Juneau", 58.301935, -134.41974),\
+      ("Arizona", "Phoenix", 33.448457, -112.073844 )])
     main()
 
