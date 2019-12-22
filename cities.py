@@ -40,7 +40,7 @@ def print_cities(road_map):
       else:
         road_map_str += (el[i] + ", ")
 
-    print(road_map_str)
+    return(road_map_str)
 
   """
   Prints a list of cities, along with their locations.
