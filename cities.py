@@ -2,10 +2,11 @@
 import random
 import codecs
 import unicodedata
-from math import sqrt
+import math
 
 
 def read_cities(file_name):
+
   infile = open(file_name, "r")
   line = infile.readline()
   road_map = []
@@ -17,6 +18,7 @@ def read_cities(file_name):
     line = infile.readline()
 
   return(road_map)
+
   """
   Read in the cities from the given `file_name`, and return
   them as a list of four-tuples:
@@ -50,6 +52,7 @@ def print_cities(road_map):
 
 
 def compute_total_distance(road_map):
+
   x1,x2,y1,y2 = 0,0,0,0
   total_distance = 0
 
@@ -59,7 +62,7 @@ def compute_total_distance(road_map):
       x2,y2 = road_map[i+1][2], road_map[i+1][3]
     else:
       x2,y2 = road_map[0][2], road_map[0][3]
-    total_distance = total_distance + (sqrt((x1-x2)**2 + (y1-y2)**2))
+    total_distance = total_distance + (math.sqrt((x1-x2)**2 + (y1-y2)**2))
 
   return(total_distance)
 
@@ -71,17 +74,27 @@ def compute_total_distance(road_map):
 
 
 def swap_cities(road_map, index1, index2):
-    """
-    Take the city at location `index` in the `road_map`, and the
-    city at location `index2`, swap their positions in the `road_map`,
-    compute the new total distance, and return the tuple
 
-        (new_road_map, new_total_distance)
+  first_city, second_city = road_map[index1], road_map[index2]
+  road_map[index1], road_map[index2] = second_city, first_city
 
-    Allow for the possibility that `index1=index2`,
-    and handle this case correctly.
-    """
-    pass
+  x1,x2 = road_map[index1][2], road_map[index2][2]
+  y1,y2 = road_map[index1][3], road_map[index2][3]
+
+  new_total_distance = (math.sqrt((x1-x2)**2 + (y1-y2)**2))
+
+  return((road_map, new_total_distance))
+
+  """
+  Take the city at location `index` in the `road_map`, and the
+  city at location `index2`, swap their positions in the `road_map`,
+  compute the new total distance, and return the tuple
+
+      (new_road_map, new_total_distance)
+
+  Allow for the possibility that `index1=index2`,
+  and handle this case correctly.
+  """
 
 def shift_cities(road_map):
     """
