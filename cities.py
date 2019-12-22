@@ -2,6 +2,7 @@
 import random
 import codecs
 import unicodedata
+from math import sqrt
 
 
 def read_cities(file_name):
@@ -49,12 +50,24 @@ def print_cities(road_map):
 
 
 def compute_total_distance(road_map):
-    """
-    Returns, as a floating point number, the sum of the distances of all
-    the connections in the `road_map`. Remember that it's a cycle, so that
-    (for example) in the initial `road_map`, Wyoming connects to Alabama...
-    """
-    pass
+  x1,x2,y1,y2 = 0,0,0,0
+  total_distance = 0
+
+  for i in range(0, len(road_map)):
+    x1,y1 = road_map[i][2], road_map[i][3]
+    if i != len(road_map) -1:
+      x2,y2 = road_map[i+1][2], road_map[i+1][3]
+    else:
+      x2,y2 = road_map[0][2], road_map[0][3]
+    total_distance = total_distance + (sqrt((x1-x2)**2 + (y1-y2)**2))
+
+  return(total_distance)
+
+  """
+  Returns, as a floating point number, the sum of the distances of all
+  the connections in the `road_map`. Remember that it's a cycle, so that
+  (for example) in the initial `road_map`, Wyoming connects to Alabama...
+  """
 
 
 def swap_cities(road_map, index1, index2):
@@ -108,5 +121,9 @@ if __name__ == "__main__": #keep this in
     # print_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
     #           ("Alaska", "Juneau", 58.301935, -134.41974),\
     #           ("Arizona", "Phoenix", 33.448457, -112.073844 )])
+
+    # compute_total_distance([("Alabama", "Montgomery", 32.361538, -86.279118),\
+    #   ("Alaska", "Juneau", 58.301935, -134.41974),\
+    #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
     main()
 
