@@ -2,44 +2,16 @@ import pytest
 import math
 from cities import *
 
+# ### Required tests (file `test_cities.py`)
+
+
 # In this assignment `main`, `read_cities`, `print_cities`, and
 # `print_map` result in input or output, so you do not need to
 # write unit tests for these. Also, you do not need to test `find_best_cycle`
 # because of random results.
-
+# Provide unit tests for all the  other functions, as well as any additional
+# computational functions you might write.
 # ****************************
-
-road_map_test = [("Alabama", "Montgomery", 32.361538, -6.279118),\
-        ("Alaska", "Juneau", 8.301935, -134.41974),\
-        ("Alabama", "Montgomery", 0.361538, -16.279118),\
-        ("Alaska", "Juneau", 78.301935, -14.41974),\
-        ("Alaska", "Juneau", 8.301935, -134.41974),\
-        ("Alabama", "Montgomery", 87.361538, -0.279118),\
-        ("Alaska", "Juneau", 52.301935, -90.41974),\
-        ("Arizona", "Phoenix", 33.448457, -112.073844 ),\
-        ("Alabama", "Montgomery", 32.361538, -6.279118),\
-        ("Alaska", "Juneau", 8.301935, -134.41974),\
-        ("Alabama", "Montgomery", 87.361538, -16.279118),\
-        ("Alaska", "Juneau", 78.301935, -14.41974),\
-        ("Alaska", "Juneau", 8.301935, -134.41974),\
-        ("Alabama", "Montgomery", 87.361538, -0.279118),\
-        ("Alaska", "Juneau", 529.301935, -0.41974),\
-        ("Arizona", "Phoenix", 303.448457, -112.073844),\
-        ("Alaska", "Juneau", 8.301935, -134.41974),\
-        ("Alabama", "Montgomery", 87.361538, -16.279118),\
-        ("Alaska", "Juneau", 78.301935, -14.41974),\
-        ("Alaska", "Juneau", 8.301935, -14.41974),\
-        ("Alabama", "Montgomery", 8.361538, -0.279118),\
-        ("Alaska", "Juneau", 52.301935, -90.41974),\
-        ("Arizona", "Phoenix", 33.448457, -112.073844 ),\
-        ("Alabama", "Montgomery", 32.361538, -6.279118),\
-        ("Alaska", "Juneau", 8.301935, 134.41974),\
-        ("Alabama", "Montgomery", 87.361538, -16.279118),\
-        ("Alaska", "Juneau", 0.301935, -14.41974),\
-        ("Alaska", "Juneau", 8.301935, -134.41974),\
-        ("Alabama", "Montgomery", 87.361538, 0.279118),\
-        ("Alaska", "Juneau", 52.301935, -90.41974),\
-        ("Arizona", "Phoenix", 33.448457, -112.073844)]
 
 def test_compute_total_distance():
     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),\
@@ -67,28 +39,22 @@ def test_swap_cities():
     distance = (math.sqrt((x1-x2)**2 + (y1-y2)**2)) + (math.sqrt((x2-x3)**2 + (y2-y3)**2)) + (math.sqrt((x3-x1)**2 + (y3-y1)**2))
 
     assert swap_cities(road_map, 0, 1) ==\
-          (new_road_map, pytest.approx(distance, 0.01)), "*********** Swaping 1 did not take place ************"
+          (new_road_map, pytest.approx(distance, 0.01)), "Swaping did not take place"
+    """
+    Take the city at location `index` in the `road_map`, and the
+    city at location `index2`, swap their positions in the `road_map`,
+    compute the new total distance, and return the tuple
 
-    road_map2 = [("Delaware", "Dover", 39.161921, -75.526755),\
-                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+        (new_road_map, new_total_distance)
 
-    new_road_map2 = [("Minnesota", "Saint Paul", 44.95, -93.094),\
-                    ("Delaware", "Dover", 39.161921, -75.526755)]
+    Allow for the possibility that `index1=index2`,
+    and handle this case correctly.
+    """
 
-    x1,y1 = new_road_map[0][2], new_road_map[0][3]
-    x2,y2 = new_road_map[1][2], new_road_map[1][3]
-
-    distance2 = (math.sqrt((x1-x2)**2 + (y1-y2)**2)) + (math.sqrt((x2-x1)**2 + (y2-y1)**2))
-
-    assert swap_cities(road_map2, 0, 1) !=\
-                (new_road_map, pytest.approx(distance, 0.01)), "*********** Swaping 2 wrong value asssertion test ************"
-
-    assert swap_cities(road_map2, 0, 1) ==\
-                  (new_road_map2, pytest.approx(distance2, 0.01)), "*********** Swaping 3 did not take place ************"
 # ****************************
 
 def test_shift_cities():
-
+    '''add your tests'''
     road_map3 = [("Kentucky", "Frankfort", 38.197274, -84.86311),\
                 ("Delaware", "Dover", 39.161921, -75.526755),\
                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
