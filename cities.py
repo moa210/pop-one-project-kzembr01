@@ -5,6 +5,9 @@ import math
 
 
 def read_cities(file_name):
+  """
+  no test needed    >>>>>>>>>>>
+  """
 
   infile = open(file_name, "r")
   line = infile.readline()
@@ -18,18 +21,11 @@ def read_cities(file_name):
 
   return(road_map)
 
-  """
-  Read in the cities from the given `file_name`, and return
-  them as a list of four-tuples:
-
-    [(state, city, latitude, longitude), ...]
-
-  Use this as your initial `road_map`, that is, the cycle
-
-  Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
-  """
 
 def print_cities(road_map):
+  """
+  no test needed >>>>>>>>>>>>
+  """
 
   for el in road_map:
     road_map_str = ""
@@ -43,11 +39,6 @@ def print_cities(road_map):
         road_map_str += (el[i] + ", ")
 
     return(road_map_str)
-
-  """
-  Prints a list of cities, along with their locations.
-  Print only one or two digits after the decimal point.
-  """
 
 
 def compute_total_distance(road_map):
@@ -67,35 +58,23 @@ def compute_total_distance(road_map):
 
   return(total_distance)
 
-  """
-  Returns, as a floating point number, the sum of the distances of all
-  the connections in the `road_map`. Remember that it's a cycle, so that
-  (for example) in the initial `road_map`, Wyoming connects to Alabama...
-  """
-
 
 def swap_cities(road_map, index1, index2):
-
   first_city, second_city = road_map[index1], road_map[index2]
-  road_map[index1], road_map[index2] = second_city, first_city
+  new_road_map = []
 
-  x1,x2 = road_map[index1][2], road_map[index2][2]
-  y1,y2 = road_map[index1][3], road_map[index2][3]
+  for i in range(0, len(road_map)):
+    if i == index1:
+      new_road_map.append(second_city)
+    elif i == index2:
+      new_road_map.append(first_city)
+    else:
+      new_road_map.append(road_map[i])
 
-  new_total_distance = (math.sqrt((x1-x2)**2 + (y1-y2)**2))
+  new_total_distance = compute_total_distance(new_road_map)
 
-  return((road_map, new_total_distance))
+  return((new_road_map, new_total_distance))
 
-  """
-  Take the city at location `index` in the `road_map`, and the
-  city at location `index2`, swap their positions in the `road_map`,
-  compute the new total distance, and return the tuple
-
-      (new_road_map, new_total_distance)
-
-  Allow for the possibility that `index1=index2`,
-  and handle this case correctly.
-  """
 
 def shift_cities(road_map):
 
@@ -107,24 +86,55 @@ def shift_cities(road_map):
 
   return(new_road_map)
 
-  """
-  For every index i in the `road_map`, the city at the position i moves
-  to the position i+1. The city at the last position moves to the position
-  0. Return the new road map.
-  """
-  # pass
 
 def find_best_cycle(road_map):
-    """
-    Using a combination of `swap_cities` and `shift_cities`,
-    try `10000` swaps/shifts, and each time keep the best cycle found so far.
-    After `10000` swaps/shifts, return the best cycle found so far.
-    Use randomly generated indices for swapping.
-    """
-    pass
+
+  count = 0
+  shortest_distance = compute_total_distance(road_map)
+  best_cycle = road_map
+
+  while (count <=7):
+    N = (len(road_map)-1)
+    number_1 = random.randint(1, N)
+    number_2 = random.randint(1, N)
+    road_map_tested = shift_cities(road_map)
+    distance_tested = compute_total_distance(road_map_tested)
+    # print("In while loop", count )
+
+    if (distance_tested < shortest_distance):
+      shortest_distance = distance_tested
+      best_cycle = road_map_tested
+      # print("In 1st if loop", count )
+
+    elif (swap_cities(road_map_tested, number_1, number_2)[1] < shortest_distance):
+      shortest_distance = swap_cities(road_map_tested, number_1, number_2)[1]
+      best_cycle = swap_cities(road_map_tested, number_1, number_2)[0]
+      # print("In elif loop", count, shortest_distance )
+
+
+    else:
+      road_map = swap_cities(road_map_tested, number_1, number_2)[0]
+    count = count + 1
+  # print(best_cycle)
+  return(best_cycle)
+
+
+
+  """
+  no test needed    >>>>>>>>>>>>>>>>>>
+
+  Using a combination of `swap_cities` and `shift_cities`,
+  try `10000` swaps/shifts, and each time keep the best cycle found so far.
+  After `10000` swaps/shifts, return the best cycle found so far.
+  Use randomly generated indices for swapping.
+  """
+  pass
 
 def print_map(road_map):
+
     """
+    no test needed  >>>>>>>>>>>>>>>>>>
+
     Prints, in an easily understandable format, the cities and
     their connections, along with the cost for each connection
     and the total cost.
@@ -132,7 +142,11 @@ def print_map(road_map):
     pass
 
 def main():
+
     """
+    no test needed    >>>>>>>>>>>>>>>>>>>>>>>
+
+
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
@@ -152,6 +166,17 @@ if __name__ == "__main__": #keep this in
     # shift_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
     #   ("Alaska", "Juneau", 58.301935, -134.41974),\
     #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
+
+    # swap_cities([("Alabama", "Montgomery", 32.361538, -6.279118),\
+    #     ("Alaska", "Juneau", 8.301935, -134.41974),\
+    #     ("Alabama", "Montgomery", 87.361538, -16.279118),\
+    #     ("Alaska", "Juneau", 78.301935, -14.41974),\
+    #     ("Alaska", "Juneau", 8.301935, -134.41974),\
+    #     ("Alabama", "Montgomery", 87.361538, -0.279118),\
+    #     ("Alaska", "Juneau", 52.301935, -90.41974),\
+    #     ("Arizona", "Phoenix", 33.448457, -112.073844 )], 1, 5)
+
+    # find_best_cycle(read_cities("test-city-data.txt"))
 
     main()
 
