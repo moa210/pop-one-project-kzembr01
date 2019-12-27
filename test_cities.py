@@ -2,11 +2,6 @@ import pytest
 import math
 from cities import *
 
-# In this assignment `main`, `read_cities`, `print_cities`, and
-# `print_map` result in input or output, so you do not need to
-# write unit tests for these. Also, you do not need to test `find_best_cycle`
-# because of random results.
-
 # ****************************
 
 def test_compute_total_distance():
@@ -171,6 +166,7 @@ def test_read_cities():
 
 # ****************************
 
+
 def test_print_cities():
 
   road_map7 = [("Alabama", "Montgomery", 32.361538, -86.279118),\
@@ -182,6 +178,7 @@ def test_print_cities():
 
   assert type(print_cities(road_map7)) == str,\
               "********** Cities printing returns wrong type **********"
+# ****************************
 
 
 def test_print_map():
@@ -192,6 +189,7 @@ def test_print_map():
 
   assert type(print_map(road_map7)) == str,\
               "********** Map printing returns wrong type **********"
+# ****************************
 
 
 def test_find_best_cycle():

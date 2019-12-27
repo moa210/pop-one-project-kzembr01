@@ -1,6 +1,4 @@
 import random
-import codecs
-import unicodedata
 import math
 
 
@@ -19,20 +17,19 @@ def read_cities(file_name):
   return(road_map)
 
 
+
 def print_cities(road_map):
 
   for el in road_map:
     road_map_str = ""
     for i in range(0, len(el)):
       if type(el[i]) == float:
-        if i < 3:
-          road_map_str += (str(round(el[i], 2)) + ", ")
-        else:
-          road_map_str += (str(round(el[i], 2)))
-      else:
-        road_map_str += (el[i] + ", ")
+        if i < 3: road_map_str += (str(round(el[i], 2)) + ", ")
+        else: road_map_str += (str(round(el[i], 2)))
+      else: road_map_str += (el[i] + ", ")
 
-    return(road_map_str)
+    print(road_map_str)
+
 
 
 def compute_total_distance(road_map):
@@ -42,15 +39,12 @@ def compute_total_distance(road_map):
 
   for i in range(0, len(road_map)):
     x1,y1 = road_map[i][2], road_map[i][3]
-
-    if i != len(road_map) -1:
-      x2,y2 = road_map[i+1][2], road_map[i+1][3]
-    else:
-      x2,y2 = road_map[0][2], road_map[0][3]
-
+    if i != len(road_map) -1: x2,y2 = road_map[i+1][2], road_map[i+1][3]
+    else: x2,y2 = road_map[0][2], road_map[0][3]
     total_distance = total_distance + (math.sqrt((x1-x2)**2 + (y1-y2)**2))
 
   return(total_distance)
+
 
 
 def swap_cities(road_map, index1, index2):
@@ -59,16 +53,14 @@ def swap_cities(road_map, index1, index2):
   new_road_map = []
 
   for i in range(0, len(road_map)):
-    if i == index1:
-      new_road_map.append(second_city)
-    elif i == index2:
-      new_road_map.append(first_city)
-    else:
-      new_road_map.append(road_map[i])
+    if i == index1: new_road_map.append(second_city)
+    elif i == index2: new_road_map.append(first_city)
+    else: new_road_map.append(road_map[i])
 
   new_total_distance = compute_total_distance(new_road_map)
 
   return((new_road_map, new_total_distance))
+
 
 
 def shift_cities(road_map):
@@ -76,10 +68,10 @@ def shift_cities(road_map):
   new_road_map = []
   new_road_map.append(road_map[-1])
 
-  for i in range(0, len(road_map)-1):
-    new_road_map.append(road_map[i])
+  for i in range(0, len(road_map)-1): new_road_map.append(road_map[i])
 
   return(new_road_map)
+
 
 
 def find_best_cycle(road_map):
@@ -105,57 +97,51 @@ def find_best_cycle(road_map):
 
     road_map = best_cycle
     count = count + 1
-    # print(type(best_cycle))
+
   return(best_cycle)
+
 
 
 def print_map(road_map):
 
-    """
-    no test needed  >>>>>>>>>>>>>>>>>>
+    distance = str(int(round(compute_total_distance(road_map))))
+    first_city = road_map[0][1]
+    first_state = road_map[0][0]
+    last_city = road_map[len(road_map)-1][1]
+    last_state = road_map[len(road_map)-1][0]
+    stops = str(len(road_map))
 
-    Prints, in an easily understandable format, the cities and
-    their connections, along with the cost for each connection
-    and the total cost.
-    """
-    pass
+    print("\nYou'll be traveling from " + first_city +
+          " in " + first_state + " to " + last_city + " in " + last_state + ".")
+
+    print("The overall distance of your trip is " +
+          distance + " miles and you'll visit " +  stops + " cities in total (Yee-haw!!!).")
+
+    print("\nSo you will travel from:")
+    print_short_trips(road_map)
+
+
+
+def print_short_trips(road_map):
+
+    for i in range(0, len(road_map)):
+      if i == (len(road_map)-1):
+        print("and finally back to where you've started; " + road_map[i][1] + " to " + road_map[0][1] +
+              ".\n" + "\n********** Have a wonderful trip! **************\n")
+      else:
+        distance = math.sqrt((road_map[i][2]-road_map[i+1][2])**2 + (road_map[i][3]-road_map[i+1][3])**2)
+        print(road_map[i][1] + " to " + road_map[i+1][1] +" (it will be " +str(int(distance))+" miles),")
+
+
 
 def main():
 
-    """
-    no test needed    >>>>>>>>>>>>>>>>>>>>>>>
-
-
-    Reads in, and prints out, the city data, then creates the "best"
-    cycle and prints it out.
-    """
-    pass
+  road_map = read_cities("city-data.txt")
+  print_cities(road_map)
+  best_cycle = find_best_cycle(road_map)
+  print_map(best_cycle)
 
 if __name__ == "__main__": #keep this in
 
-    # read_cities("test-city-data.txt")
-    # print_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
-    #           ("Alaska", "Juneau", 58.301935, -134.41974),\
-    #           ("Arizona", "Phoenix", 33.448457, -112.073844 )])
-
-    # compute_total_distance([("Alabama", "Montgomery", 32.361538, -86.279118),\
-    #   ("Alaska", "Juneau", 58.301935, -134.41974),\
-    #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
-
-    # shift_cities([("Alabama", "Montgomery", 32.361538, -86.279118),\
-    #   ("Alaska", "Juneau", 58.301935, -134.41974),\
-    #   ("Arizona", "Phoenix", 33.448457, -112.073844 )])
-
-    # swap_cities([("Alabama", "Montgomery", 32.361538, -6.279118),\
-    #     ("Alaska", "Juneau", 8.301935, -134.41974),\
-    #     ("Alabama", "Montgomery", 87.361538, -16.279118),\
-    #     ("Alaska", "Juneau", 78.301935, -14.41974),\
-    #     ("Alaska", "Juneau", 8.301935, -134.41974),\
-    #     ("Alabama", "Montgomery", 87.361538, -0.279118),\
-    #     ("Alaska", "Juneau", 52.301935, -90.41974),\
-    #     ("Arizona", "Phoenix", 33.448457, -112.073844 )], 1, 5)
-
-    find_best_cycle(read_cities("test-city-data.txt"))
-
-    main()
+  main()
 
