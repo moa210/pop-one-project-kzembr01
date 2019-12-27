@@ -1,5 +1,7 @@
 import random
 import math
+import tkinter
+from tkinter import *
 
 
 def read_cities(file_name):
@@ -133,13 +135,62 @@ def print_short_trips(road_map):
         print(road_map[i][1] + " to " + road_map[i+1][1] +" (it will be " +str(int(distance))+" miles),")
 
 
+def visualise(road_map):
+
+  window = Tk()
+  window.title("Best cycle visualisation")
+  # w = find_params(road_map)[0]
+  # h = find_params(road_map)[0]
+  frame = Canvas(window, bg= "LightCyan2",width=720, height=360)
+  frame.pack()
+
+  x1,x2,y1,y2 = 0,0,0,0
+
+  for i in range(0, len(road_map)):
+    x1 = 180 + int(road_map[i][2])*2
+    y1 = 360 + int(road_map[i][3])*2
+
+    if i != len(road_map) -1:
+      x2 = 180 + int(road_map[i+1][2])*2
+      y2 = 360 + int(road_map[i+1][3])*2
+
+    else:
+      x2 = 180 + int(road_map[0][2])*2
+      y2 = 360 + int(road_map[0][3])*2
+
+    frame.create_line(x1, y1, x2, y2, fill="DeepPink", dash=(4, 4))
+    frame.create_text(x1, y1, anchor=S, font=("Helvetica", 14), text="%d" %(i+1))
+
+  frame.create_line(360, 360, 360, 0, fill="gold", dash=(7, 10))
+  frame.create_line(0, 180, 720, 180, fill="OliveDrab4", dash=(7, 10))
+
+  mainloop()
+
+def find_params(road_map):
+
+  min_x = road_map[0][2]
+  max_x = road_map[0][2]
+  min_y = road_map[0][3]
+  max_y = road_map[0][3]
+
+  for i in range(0, len(road_map)):
+    if road_map[i][2] < min_x: min_x = road_map[i][2]
+    if road_map[i][2] > max_x: max_x = road_map[i][2]
+    if road_map[i][3] < min_y: min_y = road_map[i][3]
+    if road_map[i][3] > max_y: max_y = road_map[i][3]
+
+  width = abs(max_y) - abs(min_y)
+  height = abs(max_x) - abs(min_x)
+
+  return(width, height)
 
 def main():
 
-  road_map = read_cities("city-data.txt")
+  road_map = read_cities("test-city-data.txt")
   print_cities(road_map)
   best_cycle = find_best_cycle(road_map)
   print_map(best_cycle)
+  visualise(best_cycle)
 
 if __name__ == "__main__": #keep this in
 

@@ -149,6 +149,27 @@ def test_shift_cities():
 
 # ****************************
 
+def test_find_params():
+  road_map6 = [("Alabama", "Montgomery", 32.361538, -86.279118),\
+              ("Alaska", "Juneau", 58.301935, -134.41974),\
+              ("Arizona", "Phoenix", 33.448457, -112.073844 )]
+  road_map7 = [("Delaware", "Dover", 0, 0),\
+                  ("Alaska", "Juneau", 0, 0),\
+                  ("Alabama", "Montgomery", 0, 0),\
+                  ("Minnesota", "Saint Paul", 0, 0),\
+                  ("Arizona", "Phoenix", 0, 0)]
+  assert find_params(road_map6)[0] == pytest.approx(25.94, 0.01),\
+              "************** Width value not calculated - 1st test ****************"
+
+  assert find_params(road_map6)[1] == pytest.approx(48.14, 0.01),\
+              "************** Height value not calculated - 1st test ****************"
+
+  assert find_params(road_map7)[0] == pytest.approx(0),\
+              "************** Width value not calculated - 2nd test ****************"
+
+  assert find_params(road_map7)[1] == pytest.approx(0),\
+                          "************** Height value not calculated - 2nd test  ****************"
+# ****************************
 
 def test_read_cities():
 
@@ -164,31 +185,6 @@ def test_read_cities():
   assert read_cities(inputfilepath) == road_map6,\
               "********** Road map reading did not take place **********"
 
-# ****************************
-
-
-def test_print_cities():
-
-  road_map7 = [("Alabama", "Montgomery", 32.361538, -86.279118),\
-              ("Alaska", "Juneau", 58.301935, -134.41974),\
-              ("Arizona", "Phoenix", 33.448457, -112.073844 )]
-
-
-  # road_map7_printed = "Alabama, Montgomery, 32.36, -86.28\nAlaska, Juneau, 58.3, -134.42\nArizona, Phoenix, 33.45, -112.07\n"
-
-  assert type(print_cities(road_map7)) == str,\
-              "********** Cities printing returns wrong type **********"
-# ****************************
-
-
-def test_print_map():
-
-  road_map7 = [("Alabama", "Montgomery", 32.361538, -86.279118),\
-                ("Alaska", "Juneau", 58.301935, -134.41974),\
-                ("Arizona", "Phoenix", 33.448457, -112.073844 )]
-
-  assert type(print_map(road_map7)) == str,\
-              "********** Map printing returns wrong type **********"
 # ****************************
 
 
