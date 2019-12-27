@@ -158,18 +158,32 @@ def test_find_params():
                   ("Alabama", "Montgomery", 0, 0),\
                   ("Minnesota", "Saint Paul", 0, 0),\
                   ("Arizona", "Phoenix", 0, 0)]
-  assert find_params(road_map6)[0] == pytest.approx(25.94, 0.01),\
+
+  assert find_params(road_map6)[1] == pytest.approx(58.301935-32.361538, 0.01),\
               "************** Width value not calculated - 1st test ****************"
 
-  assert find_params(road_map6)[1] == pytest.approx(48.14, 0.01),\
+  assert find_params(road_map6)[0] == pytest.approx(134.41974-86.279118, 0.01),\
               "************** Height value not calculated - 1st test ****************"
 
-  assert find_params(road_map7)[0] == pytest.approx(0),\
+  assert find_params(road_map7)[1] == pytest.approx(0),\
               "************** Width value not calculated - 2nd test ****************"
 
-  assert find_params(road_map7)[1] == pytest.approx(0),\
-                          "************** Height value not calculated - 2nd test  ****************"
+  assert find_params(road_map7)[0] == pytest.approx(0),\
+              "************** Height value not calculated - 2nd test ****************"
+
+  assert find_params(road_map6)[2] == pytest.approx(32.361, 0.01),\
+              "************** Min_x value not calculated - 2nd test ****************"
+
+  assert find_params(road_map6)[4] == pytest.approx(58.301, 0.01),\
+              "************** Max_x value not calculated - 2nd test ****************"
+
+  assert find_params(road_map6)[3] == pytest.approx(-134.419, 0.01),\
+              "************** Min_y value not calculated - 2nd test ****************"
+
+  assert find_params(road_map6)[5] == pytest.approx(-86.279, 0.01),\
+              "************** Max_y value not calculated - 2nd test ****************"
 # ****************************
+
 
 def test_read_cities():
 
