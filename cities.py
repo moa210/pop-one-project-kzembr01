@@ -5,9 +5,6 @@ import math
 
 
 def read_cities(file_name):
-  """
-  no test needed    >>>>>>>>>>>
-  """
 
   infile = open(file_name, "r")
   line = infile.readline()
@@ -23,9 +20,6 @@ def read_cities(file_name):
 
 
 def print_cities(road_map):
-  """
-  no test needed >>>>>>>>>>>>
-  """
 
   for el in road_map:
     road_map_str = ""
@@ -60,6 +54,7 @@ def compute_total_distance(road_map):
 
 
 def swap_cities(road_map, index1, index2):
+
   first_city, second_city = road_map[index1], road_map[index2]
   new_road_map = []
 
@@ -92,43 +87,27 @@ def find_best_cycle(road_map):
   count = 0
   shortest_distance = compute_total_distance(road_map)
   best_cycle = road_map
+  N = (len(road_map)-1)
 
-  while (count <=7):
-    N = (len(road_map)-1)
+  while (count <=10000):
     number_1 = random.randint(1, N)
     number_2 = random.randint(1, N)
     road_map_tested = shift_cities(road_map)
     distance_tested = compute_total_distance(road_map_tested)
-    # print("In while loop", count )
 
     if (distance_tested < shortest_distance):
       shortest_distance = distance_tested
       best_cycle = road_map_tested
-      # print("In 1st if loop", count )
 
     elif (swap_cities(road_map_tested, number_1, number_2)[1] < shortest_distance):
       shortest_distance = swap_cities(road_map_tested, number_1, number_2)[1]
       best_cycle = swap_cities(road_map_tested, number_1, number_2)[0]
-      # print("In elif loop", count, shortest_distance )
 
-
-    else:
-      road_map = swap_cities(road_map_tested, number_1, number_2)[0]
+    road_map = best_cycle
     count = count + 1
-  # print(best_cycle)
+    # print(type(best_cycle))
   return(best_cycle)
 
-
-
-  """
-  no test needed    >>>>>>>>>>>>>>>>>>
-
-  Using a combination of `swap_cities` and `shift_cities`,
-  try `10000` swaps/shifts, and each time keep the best cycle found so far.
-  After `10000` swaps/shifts, return the best cycle found so far.
-  Use randomly generated indices for swapping.
-  """
-  pass
 
 def print_map(road_map):
 
@@ -176,7 +155,7 @@ if __name__ == "__main__": #keep this in
     #     ("Alaska", "Juneau", 52.301935, -90.41974),\
     #     ("Arizona", "Phoenix", 33.448457, -112.073844 )], 1, 5)
 
-    # find_best_cycle(read_cities("test-city-data.txt"))
+    find_best_cycle(read_cities("test-city-data.txt"))
 
     main()
 
