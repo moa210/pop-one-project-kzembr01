@@ -126,6 +126,7 @@ def print_map(road_map):
 
 def print_short_trips(road_map):
 
+# break by each stop and print out with distance
     for i in range(0, len(road_map)):
       if i == (len(road_map)-1):
         print("and finally back to where you've started; " + road_map[i][1] + " to " + road_map[0][1] +
@@ -138,49 +139,50 @@ def print_short_trips(road_map):
 
 def visualise(road_map):
 
-  window = Tk()
-  window.title("Best cycle visualisation")
-
-  h = int(find_params(road_map)[0]*10)
-  w = int(find_params(road_map)[1]*10)+30
-  min_x = find_params(road_map)[2]-5
-  max_x = find_params(road_map)[4]
-  min_y = find_params(road_map)[3]-5
-  max_y = find_params(road_map)[5]
-  min_h = 0
-  min_w = 0
+  h, w = int(find_params(road_map)[0])*10, int(find_params(road_map)[1])*10
+  min_x, max_x = find_params(road_map)[2], find_params(road_map)[4]
+  min_y, max_y = find_params(road_map)[3], find_params(road_map)[5]
+  h_para, w_para = 0, 0
   x1,x2,y1,y2 = 0,0,0,0
 
-  frame = Canvas(window, bg= "gray99",width=w, height=h)
-  frame.pack()
+# set up canvas
+  window_box = Tk()
+  window_box.title("*** Here is what your trip looks like ***")
 
-  frame.create_text(4, 12, font=("Helvetica", 9), anchor=W, text= "lng " + str(round(min_y)))
-  frame.create_text(w -4, 12, font=("Helvetica", 9), anchor=E, text= "lng " + str(round(max_y)))
-  frame.create_text(4, 24, font=("Helvetica", 9), anchor=W, text= "lat " + str(round(min_x)))
-  frame.create_text(4, h - 100, font=("Helvetica", 9), anchor=W,  text= "lat " + str(round(max_x)))
+  canvas = Canvas(window_box, bg= "gray98",width=w, height=h)
+  canvas.pack(padx = 10, pady = 10)
 
+# printing min and max paras
+  canvas.create_text(4, 8, font=("Helvetica", 9), fill="DarkOliveGreen4", anchor=W, text= "lng " + str(round(min_y)))
+  canvas.create_text(w -4, 8, font=("Helvetica", 9), fill="DarkOliveGreen4",  anchor=E, text= "lng " + str(round(max_y)))
+  canvas.create_text(4, 20, font=("Helvetica", 9), fill="coral4", anchor=W, text= "lat " + str(round(max_x)))
+  canvas.create_text(4, h - 8, font=("Helvetica", 9), fill="coral4", anchor=W,  text= "lat " + str(round(min_x)))
+  canvas.create_text(w -4, h - 8, font=("Verdana", 14, "bold"), fill="DarkOliveGreen3", anchor=E,  text= "Bon Voyage!")
+
+# draw trip lines
   for i in range(0, len(road_map)):
-    x1, y1 = int(road_map[i][2] - min_x), int(road_map[i][3] - min_y)
+    x1, y1 = abs(int(max_x - road_map[i][2]))+2, abs(int(min_y - road_map[i][3]))+2
 
     if i != len(road_map) -1:
-      x2, y2 = int(road_map[i+1][2] - min_x), int(road_map[i+1][3] - min_y)
-
+      x2, y2 = abs(int(max_x - road_map[i+1][2]))+2, abs(int(min_y  - road_map[i+1][3]))+2
     else:
-      x2, y2 = int(road_map[0][2] - min_x), int(road_map[0][3] - min_y)
+      x2, y2 = abs(int(max_x - road_map[0][2]))+2,  abs(int(min_y - road_map[0][3]))+2
 
-    frame.create_line(x1*8, y1*8, x2*8, y2*8, fill="DeepPink", dash=(5, 5))
-    frame.create_text(x1*8, y1*8, anchor=W, font=("Helvetica", 9), text= " " + str(road_map[i][1]))
+    canvas.create_line((y1)*9,(x1)*9, (y2)*9, (x2)*9, fill="DeepPink2", dash=(5, 5))
+    canvas.create_text((y1)*9,(x1)*9,  anchor=W, font=("Helvetica", 9), text= "o " + str(road_map[i][1]))
 
+# draw vertical grid lines
   for j in range(0, w):
-    if min_h < w :
-      frame.create_line(min_h, h-20, min_h, 20, fill="gray33", dash=(1, 4))
-      min_h = min_h + 30
+    if h_para < w :
+      canvas.create_line(h_para, h, h_para, 20, fill="DarkOliveGreen4", dash=(1, 5))
+      h_para = h_para + 30
     j += 30
 
+# draw horizontal grid lines
   for x in range(0, h):
-    if min_w < h:
-        frame.create_line(12, min_w, w , min_w, fill="gray20", dash=(1, 4))
-        min_w = min_w + 30
+    if w_para < h:
+        canvas.create_line(12, w_para, w , w_para, fill="coral4", dash=(1, 5))
+        w_para = w_para + 30
     x += 30
 
   mainloop()
@@ -194,14 +196,15 @@ def find_params(road_map):
   min_y = road_map[0][3]
   max_y = road_map[0][3]
 
+# finding min and max values
   for i in range(0, len(road_map)):
     if road_map[i][2] < min_x: min_x = road_map[i][2]
     if road_map[i][2] > max_x: max_x = road_map[i][2]
     if road_map[i][3] < min_y: min_y = road_map[i][3]
     if road_map[i][3] > max_y: max_y = road_map[i][3]
 
-  width = abs(max_x) - abs(min_x)
-  height = abs(min_y) - abs(max_y)
+  width = abs(max_y - min_y)
+  height = abs(min_x - max_x)
 
   return(height, width, min_x, min_y, max_x, max_y)
 
