@@ -1,6 +1,6 @@
 import random
 import math
-import tkinter
+# import tkinter
 from tkinter import *
 
 
@@ -78,7 +78,7 @@ def find_best_cycle(road_map):
     best_cycle = road_map
     n = (len(road_map) - 1)
 
-    while count <= 10000:
+    while count <= 1000:
       number_1, number_2 = random.randint(1, n), random.randint(1, n)
       road_map_tested = shift_cities(road_map)
       distance_tested = compute_total_distance(road_map_tested)
@@ -157,7 +157,7 @@ def visualise(road_map):
       else:
         x2, y2 = abs(int(max_x - road_map[0][2])) + 2, abs(int(min_y - road_map[0][3])) + 2
       canvas.create_line((y1) * 9, (x1) * 9, (y2) * 9, (x2) * 9, fill="DeepPink2")
-      canvas.create_text((y1) * 9, (x1) * 9, anchor=W, font=("Helvetica", 11,), text="o--- %d " % (i))
+      canvas.create_text((y1) * 9, (x1) * 9, anchor=W, font=("Helvetica", 11,), text="o--- %d " % (i+1))
       canvas.create_text((y1) * 9, (x1) * 9, fill="DarkOliveGreen4", anchor=W, font=("Helvetica", 8),
         text="                 " + str(road_map[i][1]))
 
