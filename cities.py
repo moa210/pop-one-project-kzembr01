@@ -1,6 +1,5 @@
 import random
 import math
-# import tkinter
 from tkinter import *
 
 
@@ -99,19 +98,19 @@ def find_best_cycle(road_map):
 
 def print_map(road_map):
 
-      distance = str(int(round(compute_total_distance(road_map))))
-      first_city, first_state = road_map[0][1], road_map[0][0]
-      last_city, last_state = road_map[len(road_map) - 1][1], road_map[len(road_map) - 1][0]
-      stops_num = str(len(road_map))
+    distance = str(int(round(compute_total_distance(road_map))))
+    first_city, first_state = road_map[0][1], road_map[0][0]
+    last_city, last_state = road_map[len(road_map) - 1][1], road_map[len(road_map) - 1][0]
+    stops_num = str(len(road_map))
 
-      print("\nYou'll be traveling from " + first_city +
-        " in " + first_state + " to " + last_city + " in " + last_state + ".")
+    print("\nYou'll be traveling from " + first_city +
+      " in " + first_state + " to " + last_city + " in " + last_state + ".")
 
-      print("The overall distance of your trip is " +
-        distance + " miles and you'll visit " + stops_num + " cities in total (Yee-haw!!!).")
+    print("The overall distance of your trip is " +
+      distance + " miles and you'll visit " + stops_num + " cities in total (Yee-haw!!!).")
 
-      print("\nSo you will travel from:")
-      print_short_trips(road_map)
+    print("\nSo you will travel from:")
+    print_short_trips(road_map)
 
 
 def print_short_trips(road_map):
@@ -210,4 +209,4 @@ def main():
 
 if __name__ == "__main__":  # keep this in
 
-  main()
+    main()
